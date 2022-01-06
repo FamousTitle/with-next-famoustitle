@@ -1,5 +1,5 @@
 import NextAuth from "next-auth"
-import Providers from "next-auth/providers"
+import CredentialsProvider from "next-auth/providers/credentials"
 
 export default NextAuth({
   session: {
@@ -7,19 +7,20 @@ export default NextAuth({
     maxAge: 7 * 24 * 60 * 60, // 7 days (in seconds)
   },
   callbacks: {
-    async session(session, token) {
-      session.accessToken = token.accessToken
-      return session
-    },
-    async jwt(token, user, account, profile, isNewUser) {
-      if (profile && profile.accessToken) {
-        token.accessToken = profile.accessToken
+    // need to put accessToken so that session can have it
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if(user && user.accessToken) {
+        token.accessToken = user.accessToken
       }
       return token
     },
+    async session({ session, user, token }) {
+      session.accessToken = token.accessToken
+      return session
+    },
   },
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       async authorize(credentials, req) {
         try {
           const response = await fetch(

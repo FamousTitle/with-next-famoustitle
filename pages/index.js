@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/client"
+import { getSession } from "next-auth/react"
 
 import StoreProvider from "contexts/store-context"
 import Content from "components/homepage/content"

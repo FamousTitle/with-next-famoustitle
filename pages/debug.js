@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getSession, signOut } from "next-auth/client"
+import { getSession, signOut } from "next-auth/react"
 
 export default function DebugPage(props) {
   const [response, setResponse] = useState("")
