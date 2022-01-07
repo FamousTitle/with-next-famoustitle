@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 export default NextAuth({
+  secret: process.env.NEXT_AUTH_SECRET,
   session: {
     jwt: true,
     maxAge: 7 * 24 * 60 * 60, // 7 days (in seconds)
