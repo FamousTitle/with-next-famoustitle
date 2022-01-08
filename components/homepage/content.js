@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment, useState, useEffect } from "react"
 import { Dialog, Menu, Transition } from "@headlessui/react"
 import {
   CogIcon,
@@ -14,6 +14,7 @@ import {
 import { SearchIcon } from "@heroicons/react/solid"
 
 import { useStoreValue, TYPE_UPDATE } from "contexts/store-context"
+import { getClientTestField } from "datastores/graphql/example"
 
 const sidebarNavigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: false },
@@ -35,8 +36,13 @@ function classNames(...classes) {
 export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [state, dispatch] = useStoreValue()
+  const [dataFromClient, setDataFromClient] = useState(null)
 
-  const { message } = state
+  const { message, session } = state
+
+  useEffect(() => {
+    getClientTestField({ session }).then((result) => setDataFromClient(`Data from server! (${result})`))
+  })
 
   return (
     <div className="h-screen bg-gray-50 flex overflow-hidden">
@@ -275,6 +281,10 @@ export default function Example() {
               </h1>
               {/* Your content */}
               {message}
+
+              { !dataFromClient && <p>Loading data from browser</p> }
+              { dataFromClient && <p>{dataFromClient}</p>}
+
             </section>
           </main>
 
