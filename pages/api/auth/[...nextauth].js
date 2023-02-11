@@ -5,12 +5,12 @@ export default NextAuth({
   secret: process.env.NEXT_AUTH_SECRET,
   session: {
     jwt: true,
-    maxAge: 7 * 24 * 60 * 60, // 7 days (in seconds)
+    maxAge: process.env.NEXT_JWT_MAX_AGE || 7 * 24 * 60 * 60, // 7 days (in seconds)
   },
   callbacks: {
     // need to put accessToken so that session can have it
     async jwt({ token, user, account, profile, isNewUser }) {
-      if(user && user.accessToken) {
+      if (user && user.accessToken) {
         token.accessToken = user.accessToken
       }
       return token
@@ -25,7 +25,7 @@ export default NextAuth({
       async authorize(credentials, req) {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_DNS_HOST}/users/sign_in`,
+            `${process.env.NEXT_PUBLIC_SERVER_HOST}/users/sign_in`,
             {
               method: "POST",
               headers: {

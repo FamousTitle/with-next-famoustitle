@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client"
-import client, { serverURI } from "datastores/graphql/client"
+import client from "datastores/graphql/client"
 
 const getUsersQuery = gql`
   query users {
@@ -11,9 +11,9 @@ const getUsersQuery = gql`
 `
 
 export async function getServerUsers({ session }) {
-  const results = await client({ session, uri: serverURI }).query({
+  const results = await client({ session }).query({
     variables: {},
-    query: getUsersQuery
+    query: getUsersQuery,
   })
   return results.data.users
 }
