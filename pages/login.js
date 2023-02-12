@@ -12,8 +12,7 @@ export default function SignInPage() {
   async function submitBtnClicked(e) {
     e.preventDefault()
     const response = await signIn("credentials", {
-      callbackUrl: "/debug",
-      redirect: true,
+      redirect: false,
       email: inputEmailRef.current.value,
       password: inputPasswordRef.current.value,
     })

@@ -15,7 +15,7 @@ export default function DebugPage(props) {
         <button
           onClick={() => {
             const response = fetch(
-              `${process.env.NEXT_PUBLIC_BACKEND_HOST}/users/sign_out`,
+              `${process.env.NEXT_PUBLIC_CLIENT_HOST}/users/sign_out`,
               {
                 method: "DELETE",
                 headers: {
@@ -28,7 +28,7 @@ export default function DebugPage(props) {
             )
 
             signOut({
-              callbackUrl: `${process.env.NEXT_PUBLIC_HOST}/login`,
+              callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_HOST}/login`,
             })
           }}
         >
