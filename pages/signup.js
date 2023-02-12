@@ -13,7 +13,7 @@ export default function SignUpPage() {
     e.preventDefault()
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_HOST}/users`,
+      `${process.env.NEXT_PUBLIC_CLIENT_HOST}/users`,
       {
         method: "POST",
         headers: {
