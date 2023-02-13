@@ -89,6 +89,10 @@ export default function SignInPage() {
               </div>
             </div>
 
+            <div className="text-xs">
+              <a href="/forgot">Forgot your password?</a>
+            </div>
+
             <div>
               <button
                 onClick={submitBtnClicked}
