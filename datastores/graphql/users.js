@@ -11,7 +11,7 @@ const getUsersQuery = gql`
 `
 
 const sendPasswordResetTokenMutation = gql`
-  mutation passwordResetToken($email: String!) {
+  mutation sendPasswordResetToken($email: String!) {
     sendPasswordResetToken(email: $email)
   }
 `
