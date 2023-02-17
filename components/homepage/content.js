@@ -2,31 +2,29 @@ import { Fragment, useState, useEffect } from "react"
 import { Dialog, Menu, Transition } from "@headlessui/react"
 import {
   CogIcon,
-  CollectionIcon,
+  RectangleStackIcon,
   HomeIcon,
-  MenuAlt2Icon,
-  PhotographIcon,
+  Bars3BottomLeftIcon,
+  PhotoIcon,
   PlusIcon,
   UserGroupIcon,
-  ViewGridIcon,
-  XIcon,
-} from "@heroicons/react/outline"
-import { SearchIcon } from "@heroicons/react/solid"
+  Squares2X2Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline"
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import { signOut } from "next-auth/react"
 
 import { useStoreValue, TYPE_UPDATE } from "contexts/store-context"
 import { getClientTestField } from "datastores/graphql/example"
+import { toastSuccess } from "components/notification"
 
 const sidebarNavigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: false },
-  { name: "All Files", href: "#", icon: ViewGridIcon, current: false },
-  { name: "Photos", href: "#", icon: PhotographIcon, current: true },
+  { name: "All Files", href: "#", icon: Squares2X2Icon, current: false },
+  { name: "Photos", href: "#", icon: PhotoIcon, current: true },
   { name: "Shared", href: "#", icon: UserGroupIcon, current: false },
-  { name: "Albums", href: "#", icon: CollectionIcon, current: false },
+  { name: "Albums", href: "#", icon: RectangleStackIcon, current: false },
   { name: "Settings", href: "#", icon: CogIcon, current: false },
-]
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Sign out", href: "#" },
 ]
 
 function classNames(...classes) {
@@ -41,7 +39,9 @@ export default function Example() {
   const { message, session } = state
 
   useEffect(() => {
-    getClientTestField({ session }).then((result) => setDataFromClient(`Data from server! (${result})`))
+    getClientTestField({ session }).then((result) =>
+      setDataFromClient(`Data from server! (${result})`)
+    )
   })
 
   return (
@@ -125,7 +125,7 @@ export default function Example() {
                       className="h-12 w-12 rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white"
                       onClick={() => setMobileMenuOpen(false)}
                     >
-                      <XIcon
+                      <XMarkIcon
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
                       />
@@ -189,7 +189,7 @@ export default function Example() {
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
-              <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
+              <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <div className="flex-1 flex justify-between px-4 sm:px-6">
               <div className="flex-1 flex">
@@ -199,7 +199,7 @@ export default function Example() {
                   </label>
                   <div className="relative w-full text-gray-400 focus-within:text-gray-600">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                      <SearchIcon
+                      <MagnifyingGlassIcon
                         className="flex-shrink-0 h-5 w-5"
                         aria-hidden="true"
                       />
@@ -237,21 +237,50 @@ export default function Example() {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {userNavigation.map((item) => (
-                        <Menu.Item key={item.name}>
-                          {({ active }) => (
-                            <a
-                              href={item.href}
-                              className={classNames(
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
-                            >
-                              {item.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700"
+                            )}
+                          >
+                            Your Profile
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <button
+                            className={classNames(
+                              active ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-gray-700 text-left w-full"
+                            )}
+                            onClick={() => {
+                              const response = fetch(
+                                `${process.env.NEXT_PUBLIC_CLIENT_HOST}/users/sign_out`,
+                                {
+                                  method: "DELETE",
+                                  headers: {
+                                    Accept: "application/json",
+                                    "Content-Type": "application/json",
+                                    JWT_AUD: "web",
+                                    Authorization: session.accessToken,
+                                  },
+                                }
+                              )
+
+                              toastSuccess("Signing out...")
+                              signOut({
+                                callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_HOST}/login`,
+                              })
+                            }}
+                          >
+                            Sign Out
+                          </button>
+                        )}
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -282,9 +311,8 @@ export default function Example() {
               {/* Your content */}
               {message}
 
-              { !dataFromClient && <p>Loading data from browser</p> }
-              { dataFromClient && <p>{dataFromClient}</p>}
-
+              {!dataFromClient && <p>Loading data from browser</p>}
+              {dataFromClient && <p>{dataFromClient}</p>}
             </section>
           </main>
 

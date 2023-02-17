@@ -16,10 +16,11 @@ export default function SignInPage() {
       email: inputEmailRef.current.value,
       password: inputPasswordRef.current.value,
     })
+
     if (response.status === 401) {
       toastError("Incorrect login/password", { autoClose: 5000 })
     } else if (response.status === 200) {
-      toastSuccess("Logged in")
+      toastSuccess("Signed in")
       router.push(`/`)
     }
   }

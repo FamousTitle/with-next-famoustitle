@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 
 export default NextAuth({
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_SECRET,
   session: {
     jwt: true,
     maxAge: process.env.NEXT_JWT_MAX_AGE || 7 * 24 * 60 * 60, // 7 days (in seconds)
@@ -22,6 +22,7 @@ export default NextAuth({
   },
   providers: [
     CredentialsProvider({
+      name: "credentials",
       async authorize(credentials, req) {
         try {
           const response = await fetch(

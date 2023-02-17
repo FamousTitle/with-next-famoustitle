@@ -3,27 +3,31 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "netlify deploy --build --prod"
   },
   "dependencies": {
-    "@apollo/client": "^3.5.8",
-    "@headlessui/react": "^1.4.3",
-    "@heroicons/react": "^1.0.5",
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tailwindcss/forms": "^0.4.0",
-    "@tailwindcss/typography": "^0.5.1",
-    "graphql": "^16.3.0",
+    "@apollo/client": "^3.7.8",
+    "@headlessui/react": "^1.7.11",
+    "@heroicons/react": "^2.0.15",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/typography": "^0.5.9",
+    "graphql": "^16.6.0",
     "lodash": "^4.17.21",
-    "luxon": "^2.3.0",
-    "next": "latest",
-    "next-auth": "^4.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-toastify": "^8.1.1"
+    "luxon": "^3.2.1",
+    "next": "^13.1.6",
+    "next-auth": "^4.19.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-toastify": "^9.1.1"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.6",
-    "tailwindcss": "^3.0.19"
+    "@netlify/plugin-nextjs": "^4.30.4",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7",
+    "netlify": "^13.1.2",
+    "netlify-cli": "^12.12.1"
   }
 }

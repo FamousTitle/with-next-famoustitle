@@ -20,10 +20,10 @@ export default function PasswordResetPage(props) {
       submittable = false
     }
 
-    // if (inputPasswordRef.current.value.length < 8) {
-    //   toastError("Password needs to be at least 8 characters long")
-    //   submittable = false
-    // }
+    if (inputPasswordRef.current.value.length < 8) {
+      toastError("Password needs to be at least 8 characters long")
+      submittable = false
+    }
 
     if (submittable) {
       const response = await userResetPassword({

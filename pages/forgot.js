@@ -9,9 +9,12 @@ export default function ForgotPasswordPage() {
 
   function submitBtnClicked(e) {
     e.preventDefault()
-    sendPasswordResetToken({ email: inputEmailRef.current.value })
-    toastSuccess("Please check your email for password reset link!")
-    router.push(`/login`)
+
+    if (inputEmailRef.current.value.length > 0) {
+      sendPasswordResetToken({ email: inputEmailRef.current.value })
+      toastSuccess("Please check your email for password reset link!")
+      router.push(`/login`)
+    }
   }
 
   return (
@@ -44,6 +47,7 @@ export default function ForgotPasswordPage() {
                   type="email"
                   autoComplete="email"
                   ref={inputEmailRef}
+                  required
                   className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
