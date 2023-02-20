@@ -18,7 +18,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <form className="mx-auto pt-12 space-y-8 w-3/6">
+    <form className="mx-auto pt-12 space-y-8 w-3/6" onSubmit={submitBtnClicked}>
       <div className="space-y-8 divide-y divide-gray-200">
         <div>
           <div>
@@ -64,13 +64,11 @@ export default function ForgotPasswordPage() {
           >
             Cancel
           </a>
-          <button
+          <input
             type="submit"
+            value="Submit"
             className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            onClick={submitBtnClicked}
-          >
-            Submit
-          </button>
+          />
         </div>
       </div>
     </form>

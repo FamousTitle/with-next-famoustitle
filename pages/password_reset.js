@@ -52,7 +52,7 @@ export default function PasswordResetPage(props) {
   }
 
   return (
-    <form className="mx-auto pt-12 space-y-8 w-3/6">
+    <form className="mx-auto pt-12 space-y-8 w-3/6" onSubmit={submitBtnClicked}>
       <div className="divide-gray-200">
         <div>
           <div>
@@ -135,13 +135,11 @@ export default function PasswordResetPage(props) {
           >
             Cancel
           </a>
-          <button
+          <input
             type="submit"
+            value="Reset Password"
             className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            onClick={submitBtnClicked}
-          >
-            Reset Password
-          </button>
+          />
         </div>
       </div>
     </form>

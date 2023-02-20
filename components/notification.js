@@ -50,7 +50,7 @@ export default function App(props) {
   return (
     <ToastContainer
       position={props.position || "top-center"}
-      autoClose={props.autoClose || 2000}
+      autoClose={props.autoClose || 5000}
       hideProgressBar={props.hideProgressBar}
       newestOnTop={props.newestOnTop}
       transition={props.transition || Slide}

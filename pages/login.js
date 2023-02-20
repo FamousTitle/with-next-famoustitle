@@ -11,6 +11,13 @@ export default function SignInPage() {
 
   async function submitBtnClicked(e) {
     e.preventDefault()
+    if (
+      inputEmailRef.current.value === "" ||
+      inputPasswordRef.current.value === ""
+    ) {
+      return
+    }
+
     const response = await signIn("credentials", {
       redirect: false,
       email: inputEmailRef.current.value,
@@ -18,10 +25,18 @@ export default function SignInPage() {
     })
 
     if (response.status === 401) {
-      toastError("Incorrect login/password", { autoClose: 5000 })
+      toastError("Incorrect login/password")
     } else if (response.status === 200) {
-      toastSuccess("Signed in")
+      toastSuccess("Logged in", { autoClose: 2000 })
       router.push(`/`)
+    }
+  }
+
+  function handleCheckboxChange(e) {
+    if (e.target.checked) {
+      inputPasswordRef.current.type = "text"
+    } else {
+      inputPasswordRef.current.type = "password"
     }
   }
 
@@ -34,7 +49,7 @@ export default function SignInPage() {
           alt="Workflow"
         />
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
+          Log in to your account
         </h2>
         <p className="mt-2 text-center text-sm text-gray-600">
           Need an account?{" "}
@@ -49,7 +64,7 @@ export default function SignInPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={submitBtnClicked}>
             <div>
               <label
                 htmlFor="email"
@@ -90,17 +105,34 @@ export default function SignInPage() {
               </div>
             </div>
 
+            <div className="mt-4 flex">
+              <div className="flex h-5 items-center">
+                <input
+                  id="offers"
+                  aria-describedby="offers-description"
+                  name="offers"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  onChange={handleCheckboxChange}
+                />
+              </div>
+              <div className="ml-3 text-sm">
+                <label htmlFor="offers" className="font-medium text-gray-700">
+                  show password
+                </label>
+              </div>
+            </div>
+
             <div className="text-xs">
               <a href="/forgot">Forgot your password?</a>
             </div>
 
             <div>
-              <button
-                onClick={submitBtnClicked}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Sign in
-              </button>
+              <input
+                type="submit"
+                value="Log in"
+                className="w-full flex cursor-pointer justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              />
             </div>
           </form>
         </div>
