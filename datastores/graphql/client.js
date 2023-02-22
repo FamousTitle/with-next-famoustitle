@@ -13,6 +13,7 @@ const defaultOptions = {
 
 export default function client(options = {}) {
   let { session } = options
+
   let host = process.env.NEXT_PUBLIC_CLIENT_HOST
 
   // set host to server if not calling from browser (backend call)

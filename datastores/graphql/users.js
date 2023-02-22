@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client"
 import client from "datastores/graphql/client"
 
-const getUsersQuery = gql`
-  query users {
-    users {
+const getCurrentUserQuery = gql`
+  query currentUser {
+    currentUser {
       id
       email
     }
@@ -56,10 +56,10 @@ export async function userResetPassword({
   return results.data.userResetPassword
 }
 
-export async function getServerUsers({ session }) {
+export async function getCurrentUser({ session }) {
   const results = await client({ session }).query({
     variables: {},
-    query: getUsersQuery,
+    query: getCurrentUserQuery,
   })
-  return results.data.users
+  return results.data.currentUser
 }

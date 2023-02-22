@@ -15,7 +15,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import { signOut } from "next-auth/react"
 
 import { useStoreValue, TYPE_UPDATE } from "contexts/store-context"
-import { getClientTestField } from "datastores/graphql/example"
+import { getCurrentUser } from "datastores/graphql/users"
 import { toastSuccess } from "components/notification"
 
 const sidebarNavigation = [
@@ -36,11 +36,13 @@ export default function Example() {
   const [state, dispatch] = useStoreValue()
   const [dataFromClient, setDataFromClient] = useState(null)
 
-  const { message, session } = state
+  const { user, session } = state
 
   useEffect(() => {
-    getClientTestField({ session }).then((result) =>
-      setDataFromClient(`Data from server! (${result})`)
+    getCurrentUser({ session }).then((result) =>
+      setDataFromClient(
+        `Data from server (called from browser)! (${result.email})`
+      )
     )
   })
 
@@ -309,8 +311,7 @@ export default function Example() {
                 Photos
               </h1>
               {/* Your content */}
-              {message}
-
+              Data from server (called from backend) {user.id}
               {!dataFromClient && <p>Loading data from browser</p>}
               {dataFromClient && <p>{dataFromClient}</p>}
             </section>
@@ -319,7 +320,7 @@ export default function Example() {
           {/* Secondary column (hidden on smaller screens) */}
           <aside className="hidden w-96 bg-white border-l border-gray-200 overflow-y-auto lg:block">
             {/* Your content */}
-            {message}
+            Data from server (called from backend) {user.id}
           </aside>
         </div>
       </div>
