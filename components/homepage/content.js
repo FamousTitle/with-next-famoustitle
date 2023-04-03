@@ -301,24 +301,39 @@ export default function Example() {
 
         {/* Main content */}
         <div className="flex-1 flex items-stretch overflow-hidden">
-          <main className="flex-1 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto p-4">
             {/* Primary column */}
+
+            {/* in section use h-full for the section to take over the entire height */}
             <section
               aria-labelledby="primary-heading"
-              className="min-w-0 flex-1 h-full flex flex-col overflow-hidden lg:order-last"
+              className="min-w-0 flex-1 flex flex-col overflow-hidden lg:order-last"
             >
-              <h1 id="primary-heading" className="sr-only">
-                Photos
+              <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                Data Examples
               </h1>
-              {/* Your content */}
               Data from server (called from backend) {user.id}
               {!dataFromClient && <p>Loading data from browser</p>}
               {dataFromClient && <p>{dataFromClient}</p>}
             </section>
+
+            <section className="mt-4">
+              <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+                Features
+              </h1>
+              <ul>
+                <li>
+                  <a href="/debug">Debug Page</a>
+                </li>
+                <li>
+                  <a href="/debug/upload">File Upload Page</a>
+                </li>
+              </ul>
+            </section>
           </main>
 
           {/* Secondary column (hidden on smaller screens) */}
-          <aside className="hidden w-96 bg-white border-l border-gray-200 overflow-y-auto lg:block">
+          <aside className="hidden w-96 bg-white border-l border-gray-200 overflow-y-auto lg:block p-4">
             {/* Your content */}
             Data from server (called from backend) {user.id}
           </aside>
