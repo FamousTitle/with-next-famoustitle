@@ -6,12 +6,11 @@ import {
   HomeIcon,
   Bars3BottomLeftIcon,
   PhotoIcon,
-  PlusIcon,
   UserGroupIcon,
   Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
+import { UserCircleIcon } from "@heroicons/react/24/solid"
 import { signOut } from "next-auth/react"
 
 import { useStoreValue, TYPE_UPDATE } from "contexts/store-context"
@@ -194,39 +193,24 @@ export default function Example() {
               <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <div className="flex-1 flex justify-between px-4 sm:px-6">
-              <div className="flex-1 flex">
-                <form className="w-full flex md:ml-0" action="#" method="GET">
-                  <label htmlFor="search-field" className="sr-only">
-                    Search all files
-                  </label>
-                  <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                      <MagnifyingGlassIcon
-                        className="flex-shrink-0 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <input
-                      name="search-field"
-                      id="search-field"
-                      className="h-full w-full border-transparent py-2 pl-8 pr-3 text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-transparent focus:placeholder-gray-400"
-                      placeholder="Search"
-                      type="search"
-                    />
-                  </div>
-                </form>
-              </div>
+              <div className="flex-1 flex"></div>
               <div className="ml-2 flex items-center space-x-4 sm:ml-6 sm:space-x-6">
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative flex-shrink-0">
                   <div>
                     <Menu.Button className="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80"
-                        alt=""
-                      />
+                      {user.avatar.thumbUrl ? (
+                        <img
+                          className="h-10 w-10 rounded-full"
+                          src={user.avatar.thumbUrl}
+                        />
+                      ) : (
+                        <UserCircleIcon
+                          className="h-10 w-10 rounded-full text-gray-300"
+                          aria-hidden="true"
+                        />
+                      )}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -286,14 +270,6 @@ export default function Example() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-
-                <button
-                  type="button"
-                  className="flex bg-indigo-600 p-1 rounded-full items-center justify-center text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  <PlusIcon className="h-6 w-6" aria-hidden="true" />
-                  <span className="sr-only">Add file</span>
-                </button>
               </div>
             </div>
           </div>

@@ -6,6 +6,10 @@ const getCurrentUserQuery = gql`
     currentUser {
       id
       email
+      avatar {
+        fullUrl
+        thumbUrl
+      }
       files @include(if: $addFiles) {
         id
         filename
@@ -26,6 +30,10 @@ const updateUserMutation = gql`
       user {
         id
         email
+        avatar {
+          fullUrl
+          thumbUrl
+        }
       }
     }
   }
