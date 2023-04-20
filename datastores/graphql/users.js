@@ -95,12 +95,12 @@ export async function getCurrentUser({ session, addFiles = false }) {
   return results.data.currentUser
 }
 
-export async function updateUser({ session, careerPath, responses }) {
+export async function updateUser({ password, passwordConfirmation, session }) {
   const results = await client({ session }).mutate({
     variables: {
       input: {
-        careerPath,
-        responses,
+        password,
+        passwordConfirmation,
       },
     },
     mutation: updateUserMutation,

@@ -9,6 +9,15 @@ export function upload({ session, files }) {
   })
 }
 
+export function uploadAvatar({ session, avatar }) {
+  return create({
+    uri: "avatars",
+    data: { avatar },
+    contentType: "multipart/form-data",
+    session,
+  })
+}
+
 export function remove({ session, uri }) {
   return destroy({
     session,

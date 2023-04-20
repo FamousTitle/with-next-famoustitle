@@ -2,16 +2,22 @@ import { getSession } from "next-auth/react"
 
 import StoreProvider from "contexts/store-context"
 import Container from "components/container"
-import Content from "components/homepage/content"
+import Content from "components/users/profiles/content"
 import { getCurrentUser } from "datastores/graphql/users"
 
-export default function Homepage(props) {
+export default function DashboardPage(props) {
   const { user } = props
 
   return (
     <StoreProvider session={props.session} data={{ user }}>
       <Container>
-        <Content />
+        <div className="bg-white">
+          <div className="px-6 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <Content />
+            </div>
+          </div>
+        </div>
       </Container>
     </StoreProvider>
   )
