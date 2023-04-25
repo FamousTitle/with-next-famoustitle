@@ -206,16 +206,13 @@ export default function Example(props) {
         </header>
 
         {/* Main content */}
-        <div className="flex-1 flex items-stretch mt-5">
-          <main className="flex-1 overflow-y-auto">
+        <div className="flex-1 flex items-stretch mt-5 overflow-y-auto">
+          <main className="flex-1">
             {/* Primary column */}
             <section
               aria-labelledby="primary-heading"
               className="min-w-0 flex-1 h-full flex flex-col lg:order-last"
             >
-              <h1 id="primary-heading" className="sr-only">
-                Photos
-              </h1>
               {props.children}
             </section>
           </main>
